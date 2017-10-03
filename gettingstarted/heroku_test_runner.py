@@ -36,6 +36,7 @@ class HerokuDiscoverRunner(DiscoverRunner):
         return super(HerokuDiscoverRunner, self).setup_databases(**kwargs)
 
     def _wipe_tables(self, connection):
+        return
         with connection.cursor() as cursor:
             cursor.execute(
                 """

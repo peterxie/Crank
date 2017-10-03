@@ -5,7 +5,7 @@
   <div class="container">
 
 
-<h2>Page View Report</h2>
+<h2>Registered Users</h2>
 
 
 <ul>
@@ -22,7 +22,29 @@
 {% endfor %}
 
 </ul>
-
+<button id="btnDeleteUsr" class="btn btn-lg btn-primary btn-block" type="button">Delete Registered User</button>
 </div>
 
+
+
+     <script>
+$(function() {
+    $('#btnDeleteUsr').click(function() {
+	
+        $.ajax({
+            url: '/delete',
+            type: 'POST',
+            success: function(response) {
+                console.log(response);
+                document.location.href = '/users';
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+    </script>
+	
+	
 {% endblock %}

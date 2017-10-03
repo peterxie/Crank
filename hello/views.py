@@ -33,6 +33,14 @@ def signUp(request):
     users = User.objects.all()
     return redirect('users')
 
+@csrf_exempt
+def delete(request):
+	if request.method == 'GET':
+		return
+	User.objects.all().delete();
+	logging.info(str(request.POST))
+	return redirect('users')
+
 def users(request):
     users = User.objects.all()
     return render(request, 'users.html', {'users': users})

@@ -1,0 +1,26 @@
+************* Module hello.views
+C: 28, 0: Trailing whitespace (trailing-whitespace)
+C: 28, 0: No space allowed around keyword argument assignment
+    user = User(name = request.POST.get('inputName'), 
+                     ^ (bad-whitespace)
+C: 29, 0: Trailing whitespace (trailing-whitespace)
+C: 29, 0: No space allowed around keyword argument assignment
+                userName = request.POST.get('inputEmail'), 
+                         ^ (bad-whitespace)
+C: 30, 0: No space allowed around keyword argument assignment
+                password = request.POST.get('inputPassword'))
+                         ^ (bad-whitespace)
+W: 38, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 39, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 40, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 40, 0: Unnecessary semicolon (unnecessary-semicolon)
+W: 41, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+W: 42, 0: Found indentation with tabs instead of spaces (mixed-indentation)
+C: 56, 0: Trailing newlines (trailing-newlines)
+C:  1, 0: Missing module docstring (missing-docstring)
+C: 11, 0: Invalid constant name "fmt" (invalid-name)
+C: 12, 0: Invalid constant name "lvl" (invalid-name)
+W: 15, 0: Specify string format arguments as logging function parameters (logging-not-lazy)
+C: 17, 0: Missing function docstring (missing-docstring)
+C: 21, 0: Invalid function name "showSignUp" (invalid-name)
+C: 21, 0: Missing function docstring (missing-docstring)

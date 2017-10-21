@@ -1,7 +1,4 @@
 """
-Django settings for gettingstarted project, on Heroku. For more info, see:
-https://github.com/heroku/heroku-django-template
-
 For more information on this file, see
 https://docs.djangoproject.com/en/1.8/topics/settings/
 
@@ -17,6 +14,7 @@ import dj_database_url
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
+LOGIN_REDIRECT_URL = 'index'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
@@ -27,7 +25,7 @@ SECRET_KEY = 'i+acxn5(akgsn!sr4^qgf(^m&*@+g1@u^t@=8s@axc41ml*f=s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEST_RUNNER = 'gettingstarted.heroku_test_runner.HerokuDiscoverRunner'
+TEST_RUNNER = 'crank.heroku_test_runner.HerokuDiscoverRunner'
 
 
 # Application definition
@@ -39,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hello'
+    'crank'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -56,7 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'gettingstarted.urls'
+ROOT_URLCONF = 'crank.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'gettingstarted.wsgi.application'
+WSGI_APPLICATION = 'crank.wsgi.application'
 
 
 # Database

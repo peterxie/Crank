@@ -1,7 +1,0 @@
-************* Module gettingstarted.urls
-C: 17, 0: Wrong hanging indentation (add 3 spaces).
-	url(r'^delete', hello.views.delete, name='delete'),
- ^  | (bad-continuation)
-C:  1, 0: Missing module docstring (missing-docstring)
-C:  6, 0: Import "import hello.views" should be placed at the top of the module (wrong-import-position)
-C: 12, 0: Invalid constant name "urlpatterns" (invalid-name)

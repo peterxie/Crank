@@ -1,8 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm
+from django.contrib.auth.models import User
 
-from .models import Greeting, User
+from .models import Greeting
 import requests
 import os
 import logging
@@ -18,20 +22,19 @@ def index(request):
     # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
 
-def showSignUp(request):
-    return render(request, 'signup.html')
-@csrf_exempt
-def signUp(request):
-    if request.method == 'GET':
-        return
-    logging.info(str(request.POST))
-    user = User(name = request.POST.get('inputName'), 
-                userName = request.POST.get('inputEmail'), 
-                password = request.POST.get('inputPassword'))
-    logging.info("user: %s, name: %s, pass: %s" % (user.name, user.userName, user.password))
-    user.save()
-    users = User.objects.all()
-    return redirect('users')
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('index')
+    else:
+        form = SignUpForm()
+    return render(request, 'signup.html', {'form': form})
 
 @csrf_exempt
 def delete(request):

@@ -7,7 +7,24 @@ A barebones Django app, which can easily be deployed to Heroku.
 Make sure you have Python [installed properly](http://install.python-guide.org).  
 
 $ git clone https://github.com/peterxie/Crank.git
+
 $ pipenv install
+
 $ python manage.py migrate
+
 $ python manage.py collectstatic
+
 $ python manage.py runserver
+
+## Running on Google Cloud
+
+Log onto Google Cloud using UNI@columbia.edu
+
+Open Console and go to Compute Engine for Project Crank
+
+Under "Remote Access" click on SSH. This opens up shell to the VM instance.
+
+Clone github. The rest of the steps are the same as running locally except one.
+
+To run on google cloud for public access
+$ python manage.py runserver 0:8000

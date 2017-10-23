@@ -27,4 +27,5 @@ Under "Remote Access" click on SSH. This opens up shell to the VM instance.
 Clone github. The rest of the steps are the same as running locally except one.
 
 To run on google cloud for public access
+
 $ python manage.py runserver 0:8000

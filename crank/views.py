@@ -11,6 +11,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.conf import settings
 
+from django.core.mail import send_mail
+
 from .models import Greeting
 from .forms import SignUpForm
 from .tokens import account_activation_token

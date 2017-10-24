@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^delete', crank.views.delete, name='delete'),
     url(r'^users', crank.views.users, name='users'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^home', crank.views.home, name='home'),
 ]

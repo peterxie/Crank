@@ -49,6 +49,10 @@ def activate(request, uidb64, token):
     else:
         return render(request, 'account_activation_invalid.html')
 
+def home(request):
+    print("This is home")
+    return render(request, 'home.html')
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

@@ -14,7 +14,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 from .models import Greeting
-from .forms import SignUpForm
+from .forms import *
 from .tokens import account_activation_token
 import requests
 import os
@@ -52,6 +52,17 @@ def activate(request, uidb64, token):
 def home(request):
     print("This is home")
     return render(request, 'home.html')
+
+def rank(request):
+    if request.method == 'POST':
+        form = RankForm(request.POST)
+        print("in rank def")
+        if form.is_valid():
+            print("form is valid")
+            return redirect('index')
+    else:
+        form = RankForm()
+    return render(request, 'rank.html', {'form':form})
 
 def signup(request):
     if request.method == 'POST':

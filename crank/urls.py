@@ -28,4 +28,5 @@ urlpatterns = [
     url(r'^users', crank.views.users, name='users'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^home', crank.views.home, name='home'),
+    url(r'^rank', crank.views.rank, name='rank'),
 ]

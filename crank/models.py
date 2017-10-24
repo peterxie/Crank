@@ -17,3 +17,11 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
+
+class Course(models.Model):
+    course_number = models.CharField(max_length = 30)
+    @classmethod
+    def create(cls, course_number):
+        course_number = cls(course_number=course_number)
+        # do something with the book
+        return course_number

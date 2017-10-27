@@ -50,7 +50,6 @@ def activate(request, uidb64, token):
         return render(request, 'account_activation_invalid.html')
 
 def home(request):
-    print("This is home")
     return render(request, 'home.html')
 
 def rank(request):
@@ -58,7 +57,6 @@ def rank(request):
         form = RankForm(request.POST)
         print("in rank def")
         if form.is_valid():
-            print("form is valid")
             return redirect('index')
     else:
         form = RankForm()

@@ -55,7 +55,6 @@ def home(request):
 def rank(request):
     if request.method == 'POST':
         form = RankForm(request.POST)
-        print("in rank def")
         if form.is_valid():
             return redirect('index')
     else:

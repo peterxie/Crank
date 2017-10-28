@@ -7,7 +7,6 @@ from django.dispatch import receiver
 # Create your models here.
 class Greeting(models.Model):
     when = models.DateTimeField('date created', auto_now_add=True)
-    courseid = models.DateTimeField('date created', auto_now_add=True)
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -29,9 +28,7 @@ class Course_Faculty_Table(models.Model):
     course_faculty_pair = models.IntegerField(primary_key=True)
 
 class Student_Course_Rating_Table(models.Model):
-    #uni = models.ForeignKey(Student_Table) #need to fix this to match up with auth_user
-    uni = models.ForeignKey(User)
-    #uni = models.IntegerField() #stub to remind Tony this is where the uni field should link to uni from account registration
+    uni = models.ForeignKey(User, null=True)
     class_id = models.ForeignKey(Course_Faculty_Table)
     student_course = models.IntegerField(primary_key=True)
 

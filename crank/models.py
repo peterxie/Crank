@@ -30,7 +30,7 @@ class Course_Faculty_Table(models.Model):
 
 class Student_Course_Rating_Table(models.Model):
     #uni = models.ForeignKey(Student_Table) #need to fix this to match up with auth_user
-    uni = models.ForeignKey(auth_user)
+    uni = models.ForeignKey(User)
     #uni = models.IntegerField() #stub to remind Tony this is where the uni field should link to uni from account registration
     class_id = models.ForeignKey(Course_Faculty_Table)
     student_course = models.IntegerField(primary_key=True)

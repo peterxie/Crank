@@ -14,26 +14,30 @@ class Profile(models.Model):
 
 #begin Tony-Frank pair insert
 class Course_Listing_Table(models.Model):
-    courseid = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     coursenumber=models.CharField(max_length=10)
     coursetitle=models.CharField(max_length=128)
 
 class Faculty_Table(models.Model):
-    facultyid = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     facultyname = models.CharField(max_length=128)
 
 class Course_Faculty_Table(models.Model):
     course = models.ForeignKey(Course_Listing_Table)
     faculty = models.ForeignKey(Faculty_Table)
-    course_faculty_pair = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
 
-class Student_Course_Rating_Table(models.Model):
-    uni = models.ForeignKey(User, null=True)
-    class_id = models.ForeignKey(Course_Faculty_Table)
-    student_course = models.IntegerField(primary_key=True)
+#class Student_Course_Rating_Table(models.Model):
+#    uni = models.ForeignKey(User, null=True)
+#    class_id = models.ForeignKey(Course_Faculty_Table)
+#    student_course = models.IntegerField(primary_key=True)
 
-class Course_Rating_Table(models.Model):
-    unique_id = models.ForeignKey(Student_Course_Rating_Table)
+class Rating_id(models.Model):
+    uni = models.ForeignKey(User)
+    course = models.ForeignKey(Course_Faculty_Table)
+    class id:
+        unique_together = (("uni", "course"),primary_key=True)
+    # #old# unique_id = models.ForeignKey(Student_Course_Rating_Table)
     usefulness = models.IntegerField()
     lecture_quality = models.IntegerField()
     overall_quality = models.IntegerField()
@@ -56,4 +60,3 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     instance.profile.save()
-

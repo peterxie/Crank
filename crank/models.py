@@ -14,18 +14,15 @@ class Profile(models.Model):
 
 #begin Tony-Frank pair insert
 class Course_Listing_Table(models.Model):
-    id = models.IntegerField(primary_key=True)
     coursenumber=models.CharField(max_length=10)
     coursetitle=models.CharField(max_length=128)
 
 class Faculty_Table(models.Model):
-    id = models.IntegerField(primary_key=True)
     facultyname = models.CharField(max_length=128)
 
 class Course_Faculty_Table(models.Model):
     course = models.ForeignKey(Course_Listing_Table)
     faculty = models.ForeignKey(Faculty_Table)
-    id = models.IntegerField(primary_key=True)
 
 #class Student_Course_Rating_Table(models.Model):
 #    uni = models.ForeignKey(User, null=True)

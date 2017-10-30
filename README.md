@@ -2,43 +2,30 @@
 
 A barebones Django app, which can easily be deployed to Heroku.
 
-This application supports the [Getting Started with Python on Heroku](https://devcenter.heroku.com/articles/getting-started-with-python) article - check it out.
-
 ## Running Locally
 
-Make sure you have Python [installed properly](http://install.python-guide.org).  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/) and [Postgres](https://devcenter.heroku.com/articles/heroku-postgresql#local-setup).
+Make sure you have Python [installed properly](http://install.python-guide.org).  
 
-```sh
-$ git clone git@github.com:heroku/python-getting-started.git
-$ cd python-getting-started
+$ git clone https://github.com/peterxie/Crank.git
 
 $ pipenv install
 
-$ createdb python_getting_started
-
 $ python manage.py migrate
+
 $ python manage.py collectstatic
 
-$ heroku local
-```
+$ python manage.py runserver
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+## Running on Google Cloud
 
-## Deploying to Heroku
+Log onto Google Cloud using UNI@columbia.edu
 
-```sh
-$ heroku create
-$ git push heroku master
+Open Console and go to Compute Engine for Project Crank
 
-$ heroku run python manage.py migrate
-$ heroku open
-```
-or
+Under "Remote Access" click on SSH. This opens up shell to the VM instance.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Clone github. The rest of the steps are the same as running locally except one.
 
-## Documentation
+To run on google cloud for public access
 
-For more information about using Python on Heroku, see these Dev Center articles:
-
-- [Python on Heroku](https://devcenter.heroku.com/categories/python)
+$ python manage.py runserver 0:8000

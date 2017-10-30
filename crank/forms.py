@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Course
 
 
 class SignUpForm(UserCreationForm):
@@ -15,3 +16,15 @@ class SignUpForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields["password1"].help_text = "Required. must contain at least 8 characters"
+
+class RankForm(forms.ModelForm):
+	course_number = forms.CharField(max_length=30, required=True, help_text='Required')
+	course_instructor = forms.CharField(max_length=30, required=True, help_text='Required')
+	quality = forms.CharField(max_length=10)
+
+	class Meta:
+		model = Course
+		fields = ('course_number', 'course_instructor', 'quality')
+
+	def __init__(self, *args, **kwargs):
+		super(RankForm, self).__init__(*args, **kwargs)

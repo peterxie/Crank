@@ -30,10 +30,11 @@ class Course_Faculty_Table(models.Model):
 #    student_course = models.IntegerField(primary_key=True)
 
 class Rating_id(models.Model):
+    id = models.AutoField(primary_key=True)
     uni = models.ForeignKey(User)
     course = models.ForeignKey(Course_Faculty_Table)
-    class id:
-        unique_together = (("uni", "course"),primary_key=True)
+    class Meta:
+        unique_together = (("uni", "course"))
     # #old# unique_id = models.ForeignKey(Student_Course_Rating_Table)
     usefulness = models.IntegerField()
     lecture_quality = models.IntegerField()

@@ -49,9 +49,11 @@ def activate(request, uidb64, token):
     else:
         return render(request, 'account_activation_invalid.html')
 
+@login_required(login_url='/login')
 def home(request):
     return render(request, 'home.html')
 
+@login_required(login_url='/login')
 def rank(request):
     if request.method == 'POST':
         form = RankForm(request.POST)

@@ -1,8 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Course
 
+from copy import deepcopy
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
@@ -17,14 +17,18 @@ class SignUpForm(UserCreationForm):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields["password1"].help_text = "Required. must contain at least 8 characters"
 
-class RankForm(forms.ModelForm):
-	course_number = forms.CharField(max_length=30, required=True, help_text='Required')
-	course_instructor = forms.CharField(max_length=30, required=True, help_text='Required')
-	quality = forms.CharField(max_length=10)
 
-	class Meta:
-		model = Course
-		fields = ('course_number', 'course_instructor', 'quality')
+rating_choices = [ (x, str(x)) for x in range(1, 6) ]
+class RankForm(forms.Form):
 
-	def __init__(self, *args, **kwargs):
-		super(RankForm, self).__init__(*args, **kwargs)
+    course = forms.CharField(max_length=30, required=True, help_text='Required')
+    instructor = forms.CharField(max_length=30, required=True, help_text='Required')
+    usefulness = forms.ChoiceField(deepcopy(rating_choices))
+    lecture_quality = forms.ChoiceField(deepcopy(rating_choices))
+    overall_quality = forms.ChoiceField(deepcopy(rating_choices))
+    oral_written_tests_helpful = forms.ChoiceField(deepcopy(rating_choices))
+    learned_much_info = forms.ChoiceField(deepcopy(rating_choices))
+
+    def __init__(self, *args, **kwargs):
+        super(RankForm, self).__init__(*args, **kwargs)
+

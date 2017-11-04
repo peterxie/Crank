@@ -50,7 +50,6 @@ def activate(request, uidb64, token):
 
 @login_required(login_url='/login')
 def home(request):
-    logging.info(request.user)
     return render(request, 'home.html')
 
 @login_required(login_url='/login')

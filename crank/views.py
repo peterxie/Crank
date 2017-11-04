@@ -13,7 +13,6 @@ from django.conf import settings
 
 from django.core.mail import send_mail
 
-from .models import Greeting
 from .forms import *
 from .tokens import account_activation_token
 import requests
@@ -25,9 +24,8 @@ lvl = getattr(settings, 'LOG_LEVEL', logging.INFO)
 
 logging.basicConfig(format=fmt, level=lvl)
 logging.info("Logging started on %s for %s" % (logging.root.name, logging.getLevelName(lvl)))
-# Create your views here.
+
 def index(request):
-    # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
 
 def account_activation_sent(request):
@@ -51,6 +49,7 @@ def activate(request, uidb64, token):
 
 @login_required(login_url='/login')
 def home(request):
+    logging.info(request.user)
     return render(request, 'home.html')
 
 @login_required(login_url='/login')
@@ -58,7 +57,8 @@ def rank(request):
     if request.method == 'POST':
         form = RankForm(request.POST)
         if form.is_valid():
-            return redirect('index')
+            logging.info(form.cleaned_data.get("course_faculty_pair"))
+            return redirect('home')
     else:
         form = RankForm()
     return render(request, 'rank.html', {'form':form})
@@ -68,6 +68,7 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
+            user.email = user.username + "@columbia.edu"
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
@@ -96,14 +97,4 @@ def delete(request):
 def users(request):
     users = User.objects.all()
     return render(request, 'users.html', {'users': users})
-
-@login_required(login_url='/login')
-def db(request):
-
-    greeting = Greeting()
-    greeting.save()
-
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})
 

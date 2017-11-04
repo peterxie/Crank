@@ -44,15 +44,6 @@ class Rating_id(models.Model):
 
 #end Tony-Frank pair insert
 
-class Course(models.Model):
-    course_number = models.CharField(max_length = 30)
-    @classmethod
-    def create(cls, course_number):
-        course_number = cls(course_number=course_number)
-        # do something with the book
-        return course_number
-
-
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:

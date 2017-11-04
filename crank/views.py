@@ -13,9 +13,9 @@ from django.conf import settings
 
 from django.core.mail import send_mail
 
-from .models import Greeting
 from .forms import *
 from .tokens import account_activation_token
+from .models import Rating_id, Course_Faculty_Table
 import requests
 import os
 import logging
@@ -25,9 +25,8 @@ lvl = getattr(settings, 'LOG_LEVEL', logging.INFO)
 
 logging.basicConfig(format=fmt, level=lvl)
 logging.info("Logging started on %s for %s" % (logging.root.name, logging.getLevelName(lvl)))
-# Create your views here.
+
 def index(request):
-    # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
 
 def account_activation_sent(request):
@@ -58,7 +57,19 @@ def rank(request):
     if request.method == 'POST':
         form = RankForm(request.POST)
         if form.is_valid():
-            return redirect('index')
+            course_pair = form.cleaned_data.get("course_faculty_pair")
+            user = User.objects.get(username=request.user)
+
+            rating = Rating_id(uni=user,
+                               course=course_pair,  
+                               usefulness=form.cleaned_data.get("usefulness"),
+                               lecture_quality=form.cleaned_data.get("lecture_quality"),
+                               overall_quality=form.cleaned_data.get("overall_quality"),
+                               oral_written_tests_helpful=form.cleaned_data.get("oral_written_tests_helpful"),
+                               learned_much_info=form.cleaned_data.get("learned_much_info"))
+            rating.save()
+            logging.info(rating)
+            return redirect('home')
     else:
         form = RankForm()
     return render(request, 'rank.html', {'form':form})
@@ -68,6 +79,7 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
+            user.email = user.username + "@columbia.edu"
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
@@ -96,14 +108,4 @@ def delete(request):
 def users(request):
     users = User.objects.all()
     return render(request, 'users.html', {'users': users})
-
-@login_required(login_url='/login')
-def db(request):
-
-    greeting = Greeting()
-    greeting.save()
-
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})
 

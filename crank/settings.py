@@ -15,7 +15,6 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = 'home'
-
 # Gmail Email Setup
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

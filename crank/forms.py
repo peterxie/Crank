@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .models import Course_Faculty_Table
+from .models import Course_Faculty_Table, Course_Listing_Table, Faculty_Table
 
 from copy import deepcopy
 
@@ -20,10 +20,11 @@ class SignUpForm(UserCreationForm):
         self.fields["password1"].help_text = "Required. must contain at least 8 characters"
 
 
-rating_choices = [ (x, str(x)) for x in range(1, 6) ]
 class RankForm(forms.Form):
 
     course_faculty_pair = forms.ModelChoiceField(queryset=Course_Faculty_Table.objects.all().order_by('course'))
+
+    rating_choices = [ (x, str(x)) for x in range(1, 6) ]
     usefulness = forms.ChoiceField(deepcopy(rating_choices))
     lecture_quality = forms.ChoiceField(deepcopy(rating_choices))
     overall_quality = forms.ChoiceField(deepcopy(rating_choices))

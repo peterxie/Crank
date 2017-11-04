@@ -15,6 +15,7 @@ from django.core.mail import send_mail
 
 from .forms import *
 from .tokens import account_activation_token
+from .models import Rating_id, Course_Faculty_Table
 import requests
 import os
 import logging
@@ -57,7 +58,18 @@ def rank(request):
     if request.method == 'POST':
         form = RankForm(request.POST)
         if form.is_valid():
-            logging.info(form.cleaned_data.get("course_faculty_pair"))
+            course_pair = form.cleaned_data.get("course_faculty_pair")
+            user = User.objects.get(username=request.user)
+
+            rating = Rating_id(uni=user,
+                               course=course_pair,  
+                               usefulness=form.cleaned_data.get("usefulness"),
+                               lecture_quality=form.cleaned_data.get("lecture_quality"),
+                               overall_quality=form.cleaned_data.get("overall_quality"),
+                               oral_written_tests_helpful=form.cleaned_data.get("oral_written_tests_helpful"),
+                               learned_much_info=form.cleaned_data.get("learned_much_info"))
+            rating.save()
+            logging.info(rating)
             return redirect('home')
     else:
         form = RankForm()

@@ -30,12 +30,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # SECURITY WARNING: change this before deploying to production!
 SECRET_KEY = 'i+acxn5(akgsn!sr4^qgf(^m&*@+g1@u^t@=8s@axc41ml*f=s'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEST_RUNNER = 'crank.heroku_test_runner.HerokuDiscoverRunner'
-
-
 # Application definition
 
 INSTALLED_APPS = (

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -57,18 +57,25 @@ def rank(request):
     if request.method == 'POST':
         form = RankForm(request.POST)
         if form.is_valid():
-            course_pair = form.cleaned_data.get("course_faculty_pair")
-            user = User.objects.get(username=request.user)
+            try:
+                course_pair = form.cleaned_data.get("course_faculty_pair")
+                user = User.objects.get(username=request.user)
 
-            rating = Rating_id(uni=user,
-                               course=course_pair,  
-                               usefulness=form.cleaned_data.get("usefulness"),
-                               lecture_quality=form.cleaned_data.get("lecture_quality"),
-                               overall_quality=form.cleaned_data.get("overall_quality"),
-                               oral_written_tests_helpful=form.cleaned_data.get("oral_written_tests_helpful"),
-                               learned_much_info=form.cleaned_data.get("learned_much_info"))
-            rating.save()
-            logging.info(rating)
+                rating = Rating_id(uni=user,
+                                   course=course_pair,  
+                                   usefulness=form.cleaned_data.get("usefulness"),
+                                   lecture_quality=form.cleaned_data.get("lecture_quality"),
+                                   overall_quality=form.cleaned_data.get("overall_quality"),
+                                   oral_written_tests_helpful=form.cleaned_data.get("oral_written_tests_helpful"),
+                                   learned_much_info=form.cleaned_data.get("learned_much_info"))
+                rating.save()
+            except Exception as e:
+                logging.error(e)
+                status_code = 400
+                message = "Ranking is not valid!"
+                explanation = "Error - you have already submitted a ranking for this class/faculty pairing"
+                return JsonResponse({'message':message, 'explanation':explanation}, status = status_code)
+
             return redirect('home')
     else:
         form = RankForm()

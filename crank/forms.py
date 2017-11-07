@@ -25,11 +25,11 @@ class RankForm(forms.Form):
     course_faculty_pair = forms.ModelChoiceField(queryset=Course_Faculty_Table.objects.all().order_by('course'))
 
     rating_choices = [ (x, str(x)) for x in range(1, 6) ]
-    usefulness = forms.ChoiceField(deepcopy(rating_choices))
-    lecture_quality = forms.ChoiceField(deepcopy(rating_choices))
-    overall_quality = forms.ChoiceField(deepcopy(rating_choices))
-    oral_written_tests_helpful = forms.ChoiceField(deepcopy(rating_choices))
-    learned_much_info = forms.ChoiceField(deepcopy(rating_choices))
+    usefulness = forms.ChoiceField(deepcopy(rating_choices), help_text='1(worst) - 5(best)')
+    lecture_quality = forms.ChoiceField(deepcopy(rating_choices), help_text='1(worst) - 5(best)')
+    overall_quality = forms.ChoiceField(deepcopy(rating_choices), help_text='1(worst) - 5(best)')
+    oral_written_tests_helpful = forms.ChoiceField(deepcopy(rating_choices), help_text='1(worst) - 5(best)')
+    learned_much_info = forms.ChoiceField(deepcopy(rating_choices), help_text='1(worst) - 5(best)')
 
     def __init__(self, *args, **kwargs):
         super(RankForm, self).__init__(*args, **kwargs)

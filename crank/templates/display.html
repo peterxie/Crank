@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="container">
+
+
+<h2>Display</h2>
+
+
+<ul>
+
+{% for rating in ratings %}
+<li>
+{{ rating.course}}
+<ul>
+  <li> {{rating.uni}} </li>
+  <li> {{rating.usefulness}} </li>
+  <li> {{rating.lecture_quality}} </li>
+  <li> {{rating.overall_quality}} </li>
+  <li> {{rating.oral_written_tests_helpful}} </li>
+  <li> {{rating.learned_much_info}} </li>
+</ul>
+</li>
+
+{% endfor %}
+
+	
+	
+{% endblock %}

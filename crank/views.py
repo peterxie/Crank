@@ -81,6 +81,10 @@ def rank(request):
         form = RankForm()
     return render(request, 'rank.html', {'form':form})
 
+def display(request):
+    ratings = Rating_id.objects.all()
+    return render(request, 'display.html', {'ratings':ratings})
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

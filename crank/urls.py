@@ -28,5 +28,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^home', crank.views.home, name='home'),
     url(r'^rank', crank.views.rank, name='rank'),
-    url(r'^display', crank.views.display, name='display'),
+    url(r'^display/$', crank.views.display, name='display'),
 ]

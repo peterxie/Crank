@@ -16,6 +16,7 @@ from django.core.mail import send_mail
 from .forms import *
 from .tokens import account_activation_token
 from .models import Rating_id, Course_Faculty_Table
+from .filters import *
 import requests
 import os
 import logging
@@ -83,7 +84,9 @@ def rank(request):
 
 def display(request):
     ratings = Rating_id.objects.all()
-    return render(request, 'display.html', {'ratings':ratings})
+    ratings = RatingFilter(request.GET, queryset=ratings)
+    
+    return render(request, 'display.html', {'filter': ratings})
 
 def signup(request):
     if request.method == 'POST':

@@ -15,11 +15,12 @@ from django.core.mail import send_mail
 
 from .forms import *
 from .tokens import account_activation_token
-from .models import Rating_id, Course_Faculty_Table
+from .models import Rating_id, Course_Faculty_Table, Rating_Average
 from .filters import *
 import requests
 import os
 import logging
+from operator import add
 
 fmt = getattr(settings, 'LOG_FORMAT', None)
 lvl = getattr(settings, 'LOG_LEVEL', logging.INFO)
@@ -84,7 +85,26 @@ def rank(request):
 
 def display(request):
     ratings = Rating_id.objects.all()
-    ratings = RatingFilter(request.GET, queryset=ratings)
+    course_faculty = Course_Faculty_Table.objects.all()
+
+    rating_dict = {}
+    for rating in ratings:
+        n = Rating_id.objects.filter(course=rating.course).count()
+        if rating.course not in rating_dict:
+            rating_dict[rating.course] = [rating.usefulness/n, rating.lecture_quality/n, rating.overall_quality/n, rating.oral_written_tests_helpful/n, rating.learned_much_info/n]
+        else:
+            rating_dict[rating.course] = list(map(add,rating_dict[rating.course],[rating.usefulness/n, rating.lecture_quality/n, rating.overall_quality/n, rating.oral_written_tests_helpful/n, rating.learned_much_info/n]))
+    
+    for key,value in rating_dict.items():
+        rating_average = Rating_Average(course=key,
+                                        usefulness=value[0],
+                                        lecture_quality=value[1],
+                                        overall_quality=value[2],
+                                        oral_written_tests_helpful=value[3],
+                                        learned_much_info=value[4])
+        rating_average.save()
+    rating_average = Rating_Average.objects.order_by('-overall_quality')
+    ratings = RatingAverageFilter(request.GET, queryset=rating_average)
     
     return render(request, 'display.html', {'filter': ratings})
 

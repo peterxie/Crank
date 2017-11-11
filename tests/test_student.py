@@ -241,7 +241,7 @@ class TestAccountCreate(TestCase):
         response = client.post('/signup/', data=form_data)
         self.assertEqual(response.status_code, f)
 
-    def FirstName1_4(self):
+    def LastName1_4(self):
         client = Client()
         form_data = {"username": v1,
                      "first_name": v2,

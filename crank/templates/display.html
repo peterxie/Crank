@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="container">
+
+
+<h2>Full Ratings of Courses</h2>
+
+<form action="" method="get">
+        {{ filter.form.as_p }}
+        <button type="submit" />Filter</button>
+    </form>
+
+<table class = "table" >
+	<tr>
+        <th>UNI</th>
+	<th>Course</th>
+	<th>Usefulness</th>
+	<th>Overall Quality</th>
+	</tr>
+    
+
+{% for obj in filter.qs %}
+	<tr>
+        <td>{{ obj.uni }}</td>
+	<td>{{obj.course}}</td>
+	<td>{{obj.usefulness}}</td>
+	<td>{{obj.overall_quality}}</td>
+	</tr>
+{% endfor %}
+
+
+
+
+
+	
+	
+{% endblock %}

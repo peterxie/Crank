@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.sites.shortcuts import get_current_site
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
@@ -13,9 +13,10 @@ from django.conf import settings
 
 from django.core.mail import send_mail
 
-from .models import Greeting
 from .forms import *
 from .tokens import account_activation_token
+from .models import Rating_id, Course_Faculty_Table
+from .filters import *
 import requests
 import os
 import logging
@@ -25,9 +26,8 @@ lvl = getattr(settings, 'LOG_LEVEL', logging.INFO)
 
 logging.basicConfig(format=fmt, level=lvl)
 logging.info("Logging started on %s for %s" % (logging.root.name, logging.getLevelName(lvl)))
-# Create your views here.
+
 def index(request):
-    # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
 
 def account_activation_sent(request):
@@ -49,23 +49,51 @@ def activate(request, uidb64, token):
     else:
         return render(request, 'account_activation_invalid.html')
 
+@login_required(login_url='/login')
 def home(request):
     return render(request, 'home.html')
 
+@login_required(login_url='/login')
 def rank(request):
     if request.method == 'POST':
         form = RankForm(request.POST)
         if form.is_valid():
-            return redirect('index')
+            try:
+                course_pair = form.cleaned_data.get("course_faculty_pair")
+                user = User.objects.get(username=request.user)
+
+                rating = Rating_id(uni=user,
+                                   course=course_pair,  
+                                   usefulness=form.cleaned_data.get("usefulness"),
+                                   lecture_quality=form.cleaned_data.get("lecture_quality"),
+                                   overall_quality=form.cleaned_data.get("overall_quality"),
+                                   oral_written_tests_helpful=form.cleaned_data.get("oral_written_tests_helpful"),
+                                   learned_much_info=form.cleaned_data.get("learned_much_info"))
+                rating.save()
+            except Exception as e:
+                logging.error(e)
+                status_code = 400
+                message = "Ranking is not valid!"
+                explanation = "Error - you have already submitted a ranking for this class/faculty pairing"
+                return JsonResponse({'message':message, 'explanation':explanation}, status = status_code)
+
+            return redirect('home')
     else:
         form = RankForm()
     return render(request, 'rank.html', {'form':form})
+
+def display(request):
+    ratings = Rating_id.objects.all()
+    ratings = RatingFilter(request.GET, queryset=ratings)
+    
+    return render(request, 'display.html', {'filter': ratings})
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
+            user.email = user.username + "@columbia.edu"
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
@@ -94,14 +122,4 @@ def delete(request):
 def users(request):
     users = User.objects.all()
     return render(request, 'users.html', {'users': users})
-
-@login_required(login_url='/login')
-def db(request):
-
-    greeting = Greeting()
-    greeting.save()
-
-    greetings = Greeting.objects.all()
-
-    return render(request, 'db.html', {'greetings': greetings})
 

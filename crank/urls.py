@@ -9,7 +9,6 @@ import crank.views
 
 urlpatterns = [
     url(r'^$', crank.views.index, name='index'),
-    url(r'^db', crank.views.db, name='db'),
     url(r'^login/$', auth_views.login, {'template_name':'login.html'}, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page':'/'}, name='logout'),
     url(r'^accounts/login/$', auth_views.login, {'template_name':'login.html'}, name='login'),
@@ -29,4 +28,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^home', crank.views.home, name='home'),
     url(r'^rank', crank.views.rank, name='rank'),
+    url(r'^display/$', crank.views.display, name='display'),
 ]

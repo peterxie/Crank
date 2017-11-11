@@ -8,6 +8,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 import os
 import dj_database_url
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -15,12 +16,11 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = 'home'
-
 # Gmail Email Setup
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'comsw4156' #gmail password
+EMAIL_HOST_PASSWORD = 'comsw4156@' #gmail password
 EMAIL_HOST_USER = 'crank.demo.verify@gmail.com' #gmail username
 EMAIL_PORT = 587
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
@@ -31,12 +31,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # SECURITY WARNING: change this before deploying to production!
 SECRET_KEY = 'i+acxn5(akgsn!sr4^qgf(^m&*@+g1@u^t@=8s@axc41ml*f=s'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEST_RUNNER = 'crank.heroku_test_runner.HerokuDiscoverRunner'
-
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -46,7 +40,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crank'
+    'django_filters',
+    'crank',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -92,6 +87,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    'test': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'testdb.sqlite3'),
     }
 }
 
@@ -125,6 +124,9 @@ USE_TZ = True
 
 # Update database configuration with $DATABASE_URL.
 db_from_env = dj_database_url.config(conn_max_age=500)
+if 'test' in sys.argv:
+    DATABASES['default'] = DATABASES['test']
+
 DATABASES['default'].update(db_from_env)
 DATABASES['default']['TEST'] = {'NAME': DATABASES['default']['NAME']}
 

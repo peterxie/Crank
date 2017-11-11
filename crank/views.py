@@ -103,10 +103,10 @@ def display(request):
                                         oral_written_tests_helpful=value[3],
                                         learned_much_info=value[4])
         rating_average.save()
-    rating_average = Rating_Average.objects.order_by('-overall_quality')
-    ratings = RatingAverageFilter(request.GET, queryset=rating_average)
+    order_by = request.GET.get('order_by', 'usefulness')
+    rating_average = Rating_Average.objects.order_by("-"+order_by)
     
-    return render(request, 'display.html', {'filter': ratings})
+    return render(request, 'display.html', {'rating_average': rating_average})
 
 def signup(request):
     if request.method == 'POST':

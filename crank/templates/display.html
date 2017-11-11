@@ -7,26 +7,25 @@
 
 <h2>Full Ratings of Courses</h2>
 
-<form action="" method="get">
-        {{ filter.form.as_p }}
-        <button type="submit" />Filter</button>
-    </form>
-
 <table class = "table" >
 	<tr>
-        <th>UNI</th>
-	<th>Course</th>
-	<th>Usefulness</th>
-	<th>Overall Quality</th>
+	<th><a href="?order_by=course">Course</a></th>
+	<th><a href="?order_by=usefulness">Usefulness</a></th>
+	<th><a href="?order_by=overall_quality">Overall Quality</a></th>
+	<th><a href="?order_by=lecture_quality">Lecture Quality</a></th>
+	<th><a href="?order_by=oral_written_tests_helpful">Oral/Written Tests Helpful</a></th>
+	<th><a href="?order_by=learned_much_info">Learned Much in Class</a></th>
 	</tr>
     
 
-{% for obj in filter.qs %}
+{% for obj in rating_average %}
 	<tr>
-        <td>{{ obj.uni }}</td>
 	<td>{{obj.course}}</td>
 	<td>{{obj.usefulness}}</td>
 	<td>{{obj.overall_quality}}</td>
+	<td>{{obj.lecture_quality}}</td>
+	<td>{{obj.oral_written_tests_helpful}}</td>
+	<td>{{obj.learned_much_info}}</td>
 	</tr>
 {% endfor %}
 

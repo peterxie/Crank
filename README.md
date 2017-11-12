@@ -1,3 +1,4 @@
+[![Waffle.io - Columns and their card count](https://badge.waffle.io/peterxie/Crank.png?columns=all)](https://waffle.io/peterxie/Crank?utm_source=badge)
 # Python: Getting Started
 
 A barebones Django app, which can easily be deployed to Heroku.

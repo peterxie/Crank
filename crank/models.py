@@ -14,14 +14,14 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.profile.save()
 
 class Course_Listing_Table(models.Model):
-    coursenumber=models.CharField(max_length=10, primary_key=True)
+    coursenumber=models.CharField(max_length=10)
     coursetitle=models.CharField(max_length=128)
 
     def __str__(self):
         return u'{0}'.format(self.coursenumber)
 
 class Faculty_Table(models.Model):
-    facultyname = models.CharField(max_length=128, primary_key=True)
+    facultyname = models.CharField(max_length=128)
     
     def __str__(self):
         return u'{0}'.format(self.facultyname)
@@ -50,11 +50,3 @@ class Rating_id(models.Model):
     class Meta:
         unique_together = (("uni", "course"))
 
-class Rating_Average(models.Model):
-    course = models.CharField(max_length=128, primary_key=True)
-
-    usefulness = models.FloatField()
-    lecture_quality = models.FloatField()
-    overall_quality = models.FloatField()
-    oral_written_tests_helpful = models.FloatField()
-    learned_much_info = models.FloatField()

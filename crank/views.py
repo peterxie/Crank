@@ -71,6 +71,29 @@ def rank(request):
                                    oral_written_tests_helpful=form.cleaned_data.get("oral_written_tests_helpful"),
                                    learned_much_info=form.cleaned_data.get("learned_much_info"))
                 rating.save()
+
+                rating_avg = Rating_Average.objects.filter(course=course_pair).first()
+                if rating_avg is not None:
+                    count = rating_avg.rating_count
+                    print('usefulness')
+                    rating_avg.usefulness = (rating_avg.usefulness*count + float(rating.usefulness))/(count+1)
+                    print('lecture_quality')
+                    rating_avg.lecture_quality = (rating_avg.lecture_quality*count + float(rating.lecture_quality))/(count+1)
+                    rating_avg.overall_quality = (rating_avg.overall_quality*count + float(rating.overall_quality))/(count+1)
+                    rating_avg.oral_written_tests_helpful = (rating_avg.oral_written_tests_helpful*count + float(rating.oral_written_tests_helpful))/(count+1)
+                    rating_avg.learned_much_info = (rating_avg.learned_much_info*count + float(rating.learned_much_info))/(count+1)
+                    rating_avg.rating_count = count+1
+                else:
+                    rating_avg = Rating_Average(course=course_pair,
+                                                usefulness=rating.usefulness,
+                                                lecture_quality=rating.lecture_quality,
+                                                overall_quality=rating.overall_quality,
+                                                oral_written_tests_helpful=rating.oral_written_tests_helpful,
+                                                learned_much_info=rating.learned_much_info,
+                                                rating_count=1)
+
+
+                rating_avg.save()
             except Exception as e:
                 logging.error(e)
                 status_code = 400
@@ -83,26 +106,7 @@ def rank(request):
         form = RankForm()
     return render(request, 'rank.html', {'form':form})
 
-def display(request):
-    ratings = Rating_id.objects.all()
-    course_faculty = Course_Faculty_Table.objects.all()
-
-    rating_dict = {}
-    for rating in ratings:
-        n = Rating_id.objects.filter(course=rating.course).count()
-        if rating.course not in rating_dict:
-            rating_dict[rating.course] = [rating.usefulness/n, rating.lecture_quality/n, rating.overall_quality/n, rating.oral_written_tests_helpful/n, rating.learned_much_info/n]
-        else:
-            rating_dict[rating.course] = list(map(add,rating_dict[rating.course],[rating.usefulness/n, rating.lecture_quality/n, rating.overall_quality/n, rating.oral_written_tests_helpful/n, rating.learned_much_info/n]))
-    
-    for key,value in rating_dict.items():
-        rating_average = Rating_Average(course=key,
-                                        usefulness=value[0],
-                                        lecture_quality=value[1],
-                                        overall_quality=value[2],
-                                        oral_written_tests_helpful=value[3],
-                                        learned_much_info=value[4])
-        rating_average.save()
+def display(request):    
     order_by = request.GET.get('order_by', 'usefulness')
     rating_average = Rating_Average.objects.order_by("-"+order_by)
     

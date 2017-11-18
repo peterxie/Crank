@@ -130,16 +130,26 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
-@csrf_exempt
-def delete(request):
-	if request.method == 'GET':
-		return
-	User.objects.all().delete();
-	logging.info(str(request.POST))
-	return redirect('users')
+@login_required(login_url='/login')
+def manage_account(request):
+    user = User.objects.get(username=request.user)
+    return render(request, 'account_management.html', {'user': user})
 
 @login_required(login_url='/login')
-def users(request):
-    users = User.objects.all()
-    return render(request, 'users.html', {'users': users})
-
+def change_password(request):
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            try:
+                old_password, new_password = form.clean_password()
+                form.save(request.user, old_password, new_password)
+                return redirect('/manage_account')
+            except Exception as e:
+                logging.error(e)
+                if e.code == 'incorrect_password':
+                  form.add_error('old_password', e.message)
+                else:
+                  form.add_error('new_password1', e.message)
+    else:
+        form = ChangePasswordForm()
+    return render(request, 'change_password.html', {'form':form})

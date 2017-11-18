@@ -15,11 +15,12 @@ from django.core.mail import send_mail
 
 from .forms import *
 from .tokens import account_activation_token
-from .models import Rating_id, Course_Faculty_Table
+from .models import Rating_id, Course_Faculty_Table, Rating_Average
 from .filters import *
 import requests
 import os
 import logging
+from operator import add
 
 fmt = getattr(settings, 'LOG_FORMAT', None)
 lvl = getattr(settings, 'LOG_LEVEL', logging.INFO)
@@ -84,9 +85,28 @@ def rank(request):
 
 def display(request):
     ratings = Rating_id.objects.all()
-    ratings = RatingFilter(request.GET, queryset=ratings)
+    course_faculty = Course_Faculty_Table.objects.all()
+
+    rating_dict = {}
+    for rating in ratings:
+        n = Rating_id.objects.filter(course=rating.course).count()
+        if rating.course not in rating_dict:
+            rating_dict[rating.course] = [rating.usefulness/n, rating.lecture_quality/n, rating.overall_quality/n, rating.oral_written_tests_helpful/n, rating.learned_much_info/n]
+        else:
+            rating_dict[rating.course] = list(map(add,rating_dict[rating.course],[rating.usefulness/n, rating.lecture_quality/n, rating.overall_quality/n, rating.oral_written_tests_helpful/n, rating.learned_much_info/n]))
     
-    return render(request, 'display.html', {'filter': ratings})
+    for key,value in rating_dict.items():
+        rating_average = Rating_Average(course=key,
+                                        usefulness=value[0],
+                                        lecture_quality=value[1],
+                                        overall_quality=value[2],
+                                        oral_written_tests_helpful=value[3],
+                                        learned_much_info=value[4])
+        rating_average.save()
+    order_by = request.GET.get('order_by', 'usefulness')
+    rating_average = Rating_Average.objects.order_by("-"+order_by)
+    
+    return render(request, 'display.html', {'rating_average': rating_average})
 
 def signup(request):
     if request.method == 'POST':
@@ -110,16 +130,26 @@ def signup(request):
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
 
-@csrf_exempt
-def delete(request):
-	if request.method == 'GET':
-		return
-	User.objects.all().delete();
-	logging.info(str(request.POST))
-	return redirect('users')
+@login_required(login_url='/login')
+def manage_account(request):
+    user = User.objects.get(username=request.user)
+    return render(request, 'account_management.html', {'user': user})
 
 @login_required(login_url='/login')
-def users(request):
-    users = User.objects.all()
-    return render(request, 'users.html', {'users': users})
-
+def change_password(request):
+    if request.method == 'POST':
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            try:
+                old_password, new_password = form.clean_password()
+                form.save(request.user, old_password, new_password)
+                return redirect('/manage_account')
+            except Exception as e:
+                logging.error(e)
+                if e.code == 'incorrect_password':
+                  form.add_error('old_password', e.message)
+                else:
+                  form.add_error('new_password1', e.message)
+    else:
+        form = ChangePasswordForm()
+    return render(request, 'change_password.html', {'form':form})

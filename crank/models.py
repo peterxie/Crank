@@ -50,3 +50,11 @@ class Rating_id(models.Model):
     class Meta:
         unique_together = (("uni", "course"))
 
+class Rating_Average(models.Model):
+    course = models.CharField(max_length=128, primary_key=True)
+
+    usefulness = models.FloatField()
+    lecture_quality = models.FloatField()
+    overall_quality = models.FloatField()
+    oral_written_tests_helpful = models.FloatField()
+    learned_much_info = models.FloatField()

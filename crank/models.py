@@ -58,3 +58,4 @@ class Rating_Average(models.Model):
     overall_quality = models.FloatField()
     oral_written_tests_helpful = models.FloatField()
     learned_much_info = models.FloatField()
+    rating_count = models.IntegerField()

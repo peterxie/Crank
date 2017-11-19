@@ -135,6 +135,15 @@ def signup(request):
     return render(request, 'signup.html', {'form': form})
 
 @login_required(login_url='/login')
+def show_history(request):
+    user = User.objects.get(username=request.user)
+
+    order_by = request.GET.get('order_by', 'course')
+    history = Rating_id.objects.filter(uni=user.id).order_by("-"+order_by)
+
+    return render(request, 'history.html', {'history': history})
+
+@login_required(login_url='/login')
 def manage_account(request):
     user = User.objects.get(username=request.user)
     return render(request, 'account_management.html', {'user': user})

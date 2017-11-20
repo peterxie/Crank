@@ -14,7 +14,7 @@ def update_user_profile(sender, instance, created, **kwargs):
     instance.profile.save()
 
 class Course_Listing_Table(models.Model):
-    coursenumber=models.CharField(max_length=12, primary_key=True)
+    coursenumber=models.CharField(max_length=10, primary_key=True)
     coursetitle=models.CharField(max_length=128)
 
     def __str__(self):

@@ -43,7 +43,6 @@ class ChangePasswordForm(forms.Form):
         'password_mismatch':_("The two password fields didn't match."),
         'incorrect_password':_("The old password is invalid!"),
         'same_as_old_password':_("new password is the same as the old password!"),
-	'incorrect_length':_("New password must be at least 8 characters."),
     }
     old_password = forms.CharField(label=_("Old Password"), widget=forms.PasswordInput)
     new_password1 = forms.CharField(label=_("New Password"), widget=forms.PasswordInput)
@@ -53,7 +52,7 @@ class ChangePasswordForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(ChangePasswordForm, self).__init__(*args, **kwargs)
-    
+
     def clean_password(self):
         old_password = self.cleaned_data.get("old_password")
         password1 = self.cleaned_data.get("new_password1")
@@ -64,7 +63,7 @@ class ChangePasswordForm(forms.Form):
                 code='password_mismatch',
             )
         return old_password, password2
-    
+
     def save(self, username, old_password, new_password):
         user = User.objects.get(username=username) 
         if not check_password(old_password, user.password):
@@ -78,10 +77,6 @@ class ChangePasswordForm(forms.Form):
                 self.error_messages['same_as_old_password'],
                 code='same_as_old_password',
             )
-        if len(new_password) < 8:
-            raise forms.ValidationError(
-		self.error_messages['incorrect_length'],
-                code='incorrect_length',
-            )
+
         user.password = make_password(new_password)
         user.save(update_fields=["password"])

@@ -64,7 +64,7 @@ def rank(request):
                 user = User.objects.get(username=request.user)
 
                 rating = Rating_id(uni=user,
-                                   course=course_pair,  
+                                   course_faculty=course_pair,  
                                    usefulness=form.cleaned_data.get("usefulness"),
                                    lecture_quality=form.cleaned_data.get("lecture_quality"),
                                    overall_quality=form.cleaned_data.get("overall_quality"),
@@ -72,7 +72,7 @@ def rank(request):
                                    learned_much_info=form.cleaned_data.get("learned_much_info"))
                 rating.save()
 
-                rating_avg = Rating_Average.objects.filter(course=course_pair).first()
+                rating_avg = Rating_Average.objects.filter(course_faculty=course_pair).first()
                 if rating_avg is not None:
                     count = rating_avg.rating_count
                     print('usefulness')
@@ -84,7 +84,7 @@ def rank(request):
                     rating_avg.learned_much_info = (rating_avg.learned_much_info*count + float(rating.learned_much_info))/(count+1)
                     rating_avg.rating_count = count+1
                 else:
-                    rating_avg = Rating_Average(course=course_pair,
+                    rating_avg = Rating_Average(course_faculty=course_pair,
                                                 usefulness=rating.usefulness,
                                                 lecture_quality=rating.lecture_quality,
                                                 overall_quality=rating.overall_quality,
@@ -166,3 +166,18 @@ def change_password(request):
     else:
         form = ChangePasswordForm()
     return render(request, 'change_password.html', {'form':form})
+
+def search(request):
+    ratings = None
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            course = form.cleaned_data.get("course")
+            faculty = form.cleaned_data.get("faculty")
+            course_faculty = Course_Faculty_Table.objects.filter(course__coursenumber__contains=course, faculty__facultyname__contains=faculty)
+            order_by = request.GET.get('order_by', 'usefulness')
+            ratings = Rating_Average.objects.filter(course_faculty__in=course_faculty).order_by("-"+order_by)
+    else:
+        form = SearchForm()
+    return render(request, 'search.html', {'form':form, 'rating_average': ratings}) 
+

@@ -85,3 +85,10 @@ class ChangePasswordForm(forms.Form):
             )
         user.password = make_password(new_password)
         user.save(update_fields=["password"])
+
+class SearchForm(forms.Form):
+    course = forms.CharField(label=_("Course Number"), required=False, help_text="e.g. comsw4156")
+    faculty = forms.CharField(label=_("Faculty Name"), required=False, help_text="e.g. kaiser")
+
+    def __init__(self, *args, **kwargs):
+        super(SearchForm, self).__init__(*args, **kwargs)

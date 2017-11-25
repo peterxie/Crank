@@ -1,11 +1,27 @@
-{% extends "base.html" %}
-{% load staticfiles %}
+{% extends 'base.html' %}
 
 {% block content %}
+  <h2>Search by Course or Professor</h2>
+  <form method="get">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button type="submit">Search</button>
+  </form>
+
+{% if rating_average %}
   <div class="container">
-
-
-<h2>Full Ratings of Courses</h2>
+<h2>Results</h2>
 
 <table class = "table" >
 	<tr>
@@ -29,10 +45,8 @@
 	</tr>
 {% endfor %}
 
-
-
-
-
-	
+{% endif %}
 	
 {% endblock %}
+
+

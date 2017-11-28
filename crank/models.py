@@ -39,7 +39,7 @@ class Course_Faculty_Table(models.Model):
 class Rating_id(models.Model):
     id = models.AutoField(primary_key=True)
     uni = models.ForeignKey(User)
-    course = models.ForeignKey(Course_Faculty_Table)
+    course_faculty = models.ForeignKey(Course_Faculty_Table)
 
     usefulness = models.IntegerField()
     lecture_quality = models.IntegerField()
@@ -48,10 +48,10 @@ class Rating_id(models.Model):
     learned_much_info = models.IntegerField()
 
     class Meta:
-        unique_together = (("uni", "course"))
+        unique_together = (("uni", "course_faculty"))
 
 class Rating_Average(models.Model):
-    course = models.CharField(max_length=128, primary_key=True)
+    course_faculty = models.ForeignKey(Course_Faculty_Table)
 
     usefulness = models.FloatField()
     lecture_quality = models.FloatField()

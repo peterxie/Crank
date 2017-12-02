@@ -27,7 +27,7 @@ class TestRating(TestCase):
                      "learned_much_info": 1}
         response = client.post('/rank/', data=form_data)
 
-        rating = Rating_id.objects.get(course=course_pair)
+        rating = Rating_id.objects.get(course_faculty=course_pair)
         self.assertEqual(rating.usefulness, 2)
         self.assertEqual(rating.lecture_quality, 1)
         self.assertEqual(rating.overall_quality, 1)

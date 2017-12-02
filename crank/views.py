@@ -148,7 +148,7 @@ def delete_rank(request,delete_id=None):
     user = User.objects.get(username=request.user)
     rank_to_delete = Rating_id.objects.filter(uni=user.id,id=delete_id).first()
     course_to_update = rank_to_delete.course_faculty
-    rating_avg = Rating_Average.objects.filter(course = course_to_update).first()
+    rating_avg = Rating_Average.objects.filter(course_faculty = course_to_update).first()
 
     u = rating_avg.usefulness
     lq = rating_avg.lecture_quality

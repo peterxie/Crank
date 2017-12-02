@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import check_password, make_password
+from django.core.exceptions import ValidationError
 
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -10,18 +11,42 @@ from .models import Course_Faculty_Table, Course_Listing_Table, Faculty_Table
 from copy import deepcopy
 
 class SignUpForm(UserCreationForm):
+    username = forms.CharField(label='Enter Username', min_length=6, max_length=7)
     first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
     last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
 
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'password1', 'password2', )
-
+        
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
         self.fields["username"].help_text = "Must be a Columbia Uni"
         self.fields["password1"].help_text = "Required. must contain at least 8 characters"
 
+    def clean_username(self):
+        # enforces uni length 6 or 7
+        # proper uni format is xxxnnnn or xxnnnn
+        # where x is a character and n is a number
+        alpha = "abcdefghijklmnopqrstuvwxyz"
+        num = "0123456789"
+        username = self.cleaned_data['username'].lower()
+        if len(username) == 6:
+            if (username[0] not in alpha) or (username[1] not in alpha):
+                raise ValidationError("Invalid uni format")
+            for n in range (2, 6):
+                if (username[n] not in num):
+                    raise ValidationError("Invalid uni format")
+        elif len(username) == 7:
+            if (username[0] not in alpha) or (username[1] not in alpha) or (uni[2] not in alpha):
+                raise ValidationError("Invalid uni format")
+            for n in range (3, 7):
+                if (username[n] not in num):
+                    raise ValidationError("Invalid uni format")
+        else:
+            raise ValidationError("Invalid uni format")
+        return username
+            #return render(request, 'signup.html', {'form': form})
 
 class RankForm(forms.Form):
 

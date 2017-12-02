@@ -15,6 +15,7 @@
 	<th><a href="?order_by=lecture_quality">Lecture Quality</a></th>
 	<th><a href="?order_by=oral_written_tests_helpful">Oral/Written Tests Helpful</a></th>
 	<th><a href="?order_by=learned_much_info">Learned Much in Class</a></th>
+	<th>Delete Record</th>
 	</tr>
     
 
@@ -26,6 +27,7 @@
 	<td>{{obj.lecture_quality}}</td>
 	<td>{{obj.oral_written_tests_helpful}}</td>
 	<td>{{obj.learned_much_info}}</td>
+	<td><a href="{% url 'delete_rank' delete_id=obj.id %}">Delete</a></td>
 	</tr>
 {% endfor %}
 

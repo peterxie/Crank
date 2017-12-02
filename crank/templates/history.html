@@ -9,7 +9,7 @@
 
 <table class = "table" >
 	<tr>
-	<th><a href="?order_by=course">Course</a></th>
+	<th><a href="?order_by=course_faculty">Course</a></th>
 	<th><a href="?order_by=usefulness">Usefulness</a></th>
 	<th><a href="?order_by=overall_quality">Overall Quality</a></th>
 	<th><a href="?order_by=lecture_quality">Lecture Quality</a></th>
@@ -21,7 +21,7 @@
 
 {% for obj in history %}
 	<tr>
-	<td>{{obj.course}}</td>
+	<td>{{obj.course_faculty}}</td>
 	<td>{{obj.usefulness}}</td>
 	<td>{{obj.overall_quality}}</td>
 	<td>{{obj.lecture_quality}}</td>

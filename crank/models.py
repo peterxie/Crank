@@ -27,8 +27,8 @@ class Faculty_Table(models.Model):
         return u'{0}'.format(self.facultyname)
 
 class Course_Faculty_Table(models.Model):
-    course = models.ForeignKey(Course_Listing_Table)
-    faculty = models.ForeignKey(Faculty_Table)
+    course = models.ForeignKey(Course_Listing_Table, on_delete=models.CASCADE)
+    faculty = models.ForeignKey(Faculty_Table, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (("course", "faculty"))
@@ -38,8 +38,8 @@ class Course_Faculty_Table(models.Model):
 
 class Rating_id(models.Model):
     id = models.AutoField(primary_key=True)
-    uni = models.ForeignKey(User)
-    course_faculty = models.ForeignKey(Course_Faculty_Table)
+    uni = models.ForeignKey(User, on_delete=models.CASCADE)
+    course_faculty = models.ForeignKey(Course_Faculty_Table, on_delete=models.CASCADE)
 
     usefulness = models.IntegerField()
     lecture_quality = models.IntegerField()
@@ -51,7 +51,7 @@ class Rating_id(models.Model):
         unique_together = (("uni", "course_faculty"))
 
 class Rating_Average(models.Model):
-    course_faculty = models.ForeignKey(Course_Faculty_Table)
+    course_faculty = models.ForeignKey(Course_Faculty_Table, on_delete=models.CASCADE)
 
     usefulness = models.FloatField()
     lecture_quality = models.FloatField()

@@ -38,7 +38,7 @@ class SignUpForm(UserCreationForm):
                 if (username[n] not in num):
                     raise ValidationError("Invalid uni format")
         elif len(username) == 7:
-            if (username[0] not in alpha) or (username[1] not in alpha) or (uni[2] not in alpha):
+            if (username[0] not in alpha) or (username[1] not in alpha) or (username[2] not in alpha):
                 raise ValidationError("Invalid uni format")
             for n in range (3, 7):
                 if (username[n] not in num):

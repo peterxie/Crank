@@ -144,6 +144,37 @@ def show_history(request):
     return render(request, 'history.html', {'history': history})
 
 @login_required(login_url='/login')
+def delete_rank(request,delete_id=None):
+    user = User.objects.get(username=request.user)
+    rank_to_delete = Rating_id.objects.filter(uni=user.id,id=delete_id).first()
+    course_to_update = rank_to_delete.course
+    rating_avg = Rating_Average.objects.filter(course = course_to_update).first()
+
+    u = rating_avg.usefulness
+    lq = rating_avg.lecture_quality
+    oq = rating_avg.overall_quality
+    owth = rating_avg.oral_written_tests_helpful
+    lmi = rating_avg.learned_much_info
+    rc = rating_avg.rating_count
+
+    if rc == 1:
+    	rating_average.delete()
+    else:
+        rating_avg.usefulness = (u*rc - rank_to_delete.usefulness)/(rc-1)
+        rating_avg.lecture_quality = (lq*rc - rank_to_delete.lecture_quality)/(rc-1)
+        rating_avg.overall_quality = (oq*rc - rank_to_delete.overall_quality)/(rc-1)
+        rating_avg.oral_written_tests_helpful = (owth*rc - rank_to_delete.oral_written_tests_helpful)/(rc-1)
+        rating_avg.learned_much_info = (lmi*rc - rank_to_delete.learned_much_info)/(rc-1)
+        rating_avg.rating_count = rc-1
+        rating_avg.save()
+
+    rank_to_delete.delete()  
+
+    
+    
+    return redirect('history')
+
+@login_required(login_url='/login')
 def manage_account(request):
     user = User.objects.get(username=request.user)
     return render(request, 'account_management.html', {'user': user})

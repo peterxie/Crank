@@ -29,4 +29,5 @@ urlpatterns = [
     url(r'^history/$', crank.views.show_history, name='history'),
     url(r'^manage_account/$', crank.views.manage_account, name='manage'),
     url(r'^change_password/$', crank.views.change_password, name='change_password'),
+    url(r'^delete_rank/(?P<delete_id>[0-9A-Za-z]+)/$', crank.views.delete_rank, name='delete_rank'),
 ]

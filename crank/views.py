@@ -138,7 +138,7 @@ def signup(request):
 def show_history(request):
     user = User.objects.get(username=request.user)
 
-    order_by = request.GET.get('order_by', 'course')
+    order_by = request.GET.get('order_by', 'course_faculty')
     history = Rating_id.objects.filter(uni=user.id).order_by("-"+order_by)
 
     return render(request, 'history.html', {'history': history})

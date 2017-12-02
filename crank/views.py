@@ -158,7 +158,7 @@ def delete_rank(request,delete_id=None):
     rc = rating_avg.rating_count
 
     if rc == 1:
-    	rating_average.delete()
+    	rating_avg.delete()
     else:
         rating_avg.usefulness = (u*rc - rank_to_delete.usefulness)/(rc-1)
         rating_avg.lecture_quality = (lq*rc - rank_to_delete.lecture_quality)/(rc-1)

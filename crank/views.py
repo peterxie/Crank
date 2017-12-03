@@ -41,6 +41,7 @@ def activate(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
         user = None
 
+	# We succeeded in retrieving user and verifying hash from verification email.
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.profile.email_confirmed = True
@@ -72,6 +73,7 @@ def rank(request):
                 rating.save()
 
                 rating_avg = Rating_Average.objects.filter(course_faculty=course_pair).first()
+				#Update rating average if it exists
                 if rating_avg is not None:
                     count = rating_avg.rating_count
                     print('usefulness')
@@ -82,6 +84,7 @@ def rank(request):
                     rating_avg.oral_written_tests_helpful = (rating_avg.oral_written_tests_helpful*count + float(rating.oral_written_tests_helpful))/(count+1)
                     rating_avg.learned_much_info = (rating_avg.learned_much_info*count + float(rating.learned_much_info))/(count+1)
                     rating_avg.rating_count = count+1
+                # Create a new rating average
                 else:
                     rating_avg = Rating_Average(course_faculty=course_pair,
                                                 usefulness=rating.usefulness,
@@ -105,7 +108,8 @@ def rank(request):
         form = RankForm()
     return render(request, 'rank.html', {'form':form})
 
-def display(request):    
+def display(request):
+	#default order by usefulness
     order_by = request.GET.get('order_by', 'usefulness')
     rating_average = Rating_Average.objects.order_by("-"+order_by)
     
@@ -137,6 +141,7 @@ def signup(request):
 def show_history(request):
     user = User.objects.get(username=request.user)
 
+	#Default order by course_faculty
     order_by = request.GET.get('order_by', 'course_faculty')
     history = Rating_id.objects.filter(uni=user.id).order_by("-"+order_by)
 

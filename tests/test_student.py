@@ -93,7 +93,6 @@ class TestAccountCreate(TestCase):
                      "password1": v3,
                      "password2": v3}
         response = client.post('/signup/', data=form_data)
-        print(response)
         self.assertEqual(response.status_code, p)
    
     def testUsername1_8(self):
@@ -114,7 +113,6 @@ class TestAccountCreate(TestCase):
                      "password1": v3,
                      "password2": v3}
         response = client.post('/signup/', data=form_data)
-        print(response)
         self.assertEqual(response.status_code, f)
 
     def testUsername1_10(self):
@@ -158,7 +156,7 @@ class TestAccountCreate(TestCase):
                      "password1": v3,
                      "password2": v3}
         response = client.post('/signup/', data=form_data)
-        self.assertEqual(response.status_code, f)
+        self.assertEqual(response.status_code, p)
 
     def testFirstName1_4(self):
         client = Client()
@@ -168,7 +166,7 @@ class TestAccountCreate(TestCase):
                      "password1": v3,
                      "password2": v3}
         response = client.post('/signup/', data=form_data)
-        self.assertEqual(response.status_code, f)
+        self.assertEqual(response.status_code, p)
 
     def testFirstName1_5(self):
         client = Client()
@@ -178,7 +176,7 @@ class TestAccountCreate(TestCase):
                      "password1": v3,
                      "password2": v3}
         response = client.post('/signup/', data=form_data)
-        self.assertEqual(response.status_code, f)
+        self.assertEqual(response.status_code, p)
 
     def testFirstName1_6(self):
         client = Client()
@@ -239,9 +237,9 @@ class TestAccountCreate(TestCase):
                      "password1": v3,
                      "password2": v3}
         response = client.post('/signup/', data=form_data)
-        self.assertEqual(response.status_code, f)
+        self.assertEqual(response.status_code, p)
 
-    def testFirstName1_4(self):
+    def testLastName1_4(self):
         client = Client()
         form_data = {"username": v1,
                      "first_name": v2,
@@ -249,7 +247,7 @@ class TestAccountCreate(TestCase):
                      "password1": v3,
                      "password2": v3}
         response = client.post('/signup/', data=form_data)
-        self.assertEqual(response.status_code, f)
+        self.assertEqual(response.status_code, p)
 
     def LastName1_5(self):
         client = Client()
@@ -310,7 +308,7 @@ class TestAccountCreate(TestCase):
                      "password1": "M@chin$L",
                      "password2": "M@chin$L"}
         response = client.post('/signup/', data=form_data)
-        self.assertEqual(response.status_code, f)
+        self.assertEqual(response.status_code, p)
 
     def testPassword_1_3(self):
         client = Client()

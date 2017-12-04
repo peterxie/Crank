@@ -1,0 +1,109 @@
+Codacy:
+	urls.py:
+	Reimport 'views' (imported line 2, duplicated line 5)
+	from django.contrib.auth import views as auth_views 
+
+	tests/test_student.py
+	Unused User
+
+	tests/test_rating.py
+	Unused variable 'course_pair'
+			course_pair = Course_Faculty_Table.objects.get(course=self.course, faculty=self.faculty)     
+			lines 41, 57
+
+	forms.py
+	 unused ugettext 
+
+	views py:
+	unused imports:
+	csrf_exempt
+	authenciate
+	UserCreationForm
+	send_mail
+	requests
+	os
+	logging
+
+
+Pylint:
+	Manage.py 
+	C:\Users\y\Desktop\Crank>pylint manage.py
+	No config file found, using default configuration
+	************* Module manage
+	C:  1, 0: Missing module docstring (missing-docstring)
+	-----------------------------------
+	Your code has been rated at 8.33/10
+	Models.py
+	C:\Users\y\Desktop\Crank\crank>pylint models.py
+	No config file found, using default configuration
+	************* Module crank.models
+	W: 60, 0: Bad indentation. Found 6 spaces, expected 8 (bad-indentation)
+	E: 22, 8: Class 'Profile' has no 'objects' member (no-member)
+	W: 20,24: Unused argument 'sender' (unused-argument)
+	W: 20, 0: Unused argument 'kwargs' (unused-argument)
+	C: 29, 0: Invalid class name "Course_Listing_Table" (invalid-name)
+	C: 40, 0: Invalid class name "Faculty_Table" (invalid-name)
+	C: 52, 0: Invalid class name "Course_Faculty_Table" (invalid-name)
+	C: 68, 0: Invalid class name "Rating_id" (invalid-name)
+	C: 69, 4: Invalid class attribute name "id" (invalid-name)
+	C: 86, 0: Invalid class name "Rating_Average" (invalid-name)
+	-----------------------------------
+	Your code has been rated at 3.08/10
+
+	Views.py
+	C:\Users\y\Desktop\Crank\crank>pylint views.py
+	No config file found, using default configuration
+	************* Module crank.views
+	C: 25, 0: Invalid constant name "fmt" (invalid-name)
+	C: 26, 0: Invalid constant name "lvl" (invalid-name)
+	W: 29, 0: Specify string format arguments as logging function parameters (logging-not-lazy)
+	E: 41,50: Class 'User' has no 'DoesNotExist' member (no-member)
+	R: 45, 4: Unnecessary "else" after "return" (no-else-return)
+	W: 99,19: Catching too general exception Exception (broad-except)
+	E: 75,29: Class 'Rating_Average' has no 'objects' member (no-member)
+	E:114,21: Class 'Rating_Average' has no 'objects' member (no-member)
+	E:146,14: Class 'Rating_id' has no 'objects' member (no-member)
+	E:153,21: Class 'Rating_id' has no 'objects' member (no-member)
+	E:155,17: Class 'Rating_Average' has no 'objects' member (no-member)
+	W:195,19: Catching too general exception Exception (broad-except)
+	E:197,19: Instance of 'Exception' has no 'code' member (no-member)
+	E:198,49: Instance of 'Exception' has no 'message' member (no-member)
+	E:200,50: Instance of 'Exception' has no 'message' member (no-member)
+	E:212,29: Class 'Course_Faculty_Table' has no 'objects' member (no-member)
+	E:214,22: Class 'Rating_Average' has no 'objects' member (no-member)
+	W:  3, 0: Unused HttpResponse imported from django.http (unused-import)
+	W:  3, 0: Unused HttpResponseRedirect imported from django.http (unused-import)
+	W:  8, 0: Unused csrf_exempt imported from django.views.decorators.csrf (unused-import)
+	W:  9, 0: Unused login imported from django.contrib.auth (unused-import)
+	W:  9, 0: Unused authenticate imported from django.contrib.auth (unused-import)
+	W: 10, 0: Unused UserCreationForm imported from django.contrib.auth.forms (unused-import)
+	W: 14, 0: Unused send_mail imported from django.core.mail (unused-import)
+	W: 16, 0: Unused import forms from wildcard import (unused-wildcard-import)
+	W: 16, 0: Unused import check_password from wildcard import (unused-wildcard-import)
+	W: 16, 0: Unused import make_password from wildcard import (unused-wildcard-import)
+	W: 16, 0: Unused import ValidationError from wildcard import (unused-wildcard-import)
+	W: 16, 0: Unused import ugettext from wildcard import (unused-wildcard-import)
+	W: 16, 0: Unused import Course_Listing_Table from wildcard import (unused-wildcard-import)
+	W: 16, 0: Unused import Faculty_Table from wildcard import (unused-wildcard-import)
+	W: 16, 0: Unused import deepcopy from wildcard import (unused-wildcard-import)
+	W: 19, 0: Unused import django_filters from wildcard import (unused-wildcard-import)
+	W: 19, 0: Unused import RatingFilter from wildcard import (unused-wildcard-import)
+	W: 19, 0: Unused import RatingAverageFilter from wildcard import (unused-wildcard-import)
+	W: 20, 0: Unused import requests (unused-import)
+	W: 21, 0: Unused import os (unused-import)
+	W: 23, 0: Unused add imported from operator (unused-import)
+	C: 20, 0: external import "import requests" should be placed before "from .forms import *" (wrong-import-order)
+	C: 21, 0: standard import "import os" should be placed before "from django.shortcuts import render, redirect" (wrong-import-order)
+	C: 22, 0: standard import "import logging" should be placed before "from django.shortcuts import render, redirect" (wrong-import-order)
+	C: 23, 0: standard import "from operator import add" should be placed before "from django.shortcuts import render, redirect" (wrong-import-order)
+	-----------------------------------
+	Your code has been rated at 1.13/10
+
+	Forms.py
+	E: 62,58: Class 'Course_Faculty_Table' has no 'objects' member (no-member)
+	W:  7, 0: Unused ugettext imported from django.utils.translation (unused-import)
+	W:  9, 0: Unused Course_Listing_Table imported from models (unused-import)
+	W:  9, 0: Unused Faculty_Table imported from models (unused-import)
+	C: 11, 0: standard import "from copy import deepcopy" should be placed before "from django import forms" (wrong-import-order)
+	-----------------------------------
+	Your code has been rated at 4.25/10

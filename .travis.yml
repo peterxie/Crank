@@ -1,0 +1,7 @@
+language: python
+python:
+    - 3.6
+install:
+    - pip install unittest2
+    - pip install -r test-requirements.txt --use-mirrors
+    script: python manage.py test tests

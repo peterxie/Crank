@@ -1,0 +1,7 @@
+[run]
+omit = 
+    ../*migrations*
+    */models.py
+    */__init*
+    */admin.py
+    */settings.py

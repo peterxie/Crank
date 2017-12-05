@@ -11,6 +11,10 @@ $ git clone https://github.com/peterxie/Crank.git
 
 $ pipenv install
 
+$ pipenv shell
+
+$ pip install -r requirements.txt
+
 $ python manage.py migrate
 
 $ python manage.py collectstatic

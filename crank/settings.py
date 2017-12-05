@@ -41,8 +41,17 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
+    'django_nose',
     'crank',
 )
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--testmatch=^test',
+    '--with-coverage',
+    '--cover-package=crank',
+    ]
 
 MIDDLEWARE_CLASSES = (
     # Simplified static file serving.

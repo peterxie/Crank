@@ -5,20 +5,21 @@
   <div class="container">
 
 
-<h2>Full Ratings of Courses</h2>
+<h2>Rating History</h2>
 
 <table class = "table" >
 	<tr>
-	<th><a href="?order_by=course_faculty">Course/Faculty</a></th>
+	<th><a href="?order_by=course_faculty">Course</a></th>
 	<th><a href="?order_by=usefulness">Usefulness</a></th>
 	<th><a href="?order_by=overall_quality">Overall Quality</a></th>
 	<th><a href="?order_by=lecture_quality">Lecture Quality</a></th>
 	<th><a href="?order_by=oral_written_tests_helpful">Oral/Written Tests Helpful</a></th>
 	<th><a href="?order_by=learned_much_info">Learned Much in Class</a></th>
+	<th>Delete Record</th>
 	</tr>
     
 
-{% for obj in rating_average %}
+{% for obj in history %}
 	<tr>
 	<td>{{obj.course_faculty}}</td>
 	<td>{{obj.usefulness}}</td>
@@ -26,13 +27,9 @@
 	<td>{{obj.lecture_quality}}</td>
 	<td>{{obj.oral_written_tests_helpful}}</td>
 	<td>{{obj.learned_much_info}}</td>
+	<td><a href="{% url 'delete_rank' delete_id=obj.id %}">Delete</a></td>
 	</tr>
 {% endfor %}
 
 
-
-
-
-	
-	
 {% endblock %}

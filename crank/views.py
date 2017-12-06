@@ -10,6 +10,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.core.urlresolvers import reverse
 
 from django.core.mail import send_mail
 
@@ -191,7 +192,7 @@ def change_password(request):
             try:
                 old_password, new_password = form.clean_password()
                 form.save(request.user, old_password, new_password)
-                return redirect('/manage_account')
+                return redirect(reverse('manage_account'))
             except Exception as e:
                 logging.error(e)
                 if e.code == 'incorrect_password':

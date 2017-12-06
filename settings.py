@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'crank',
 )
 
+
 MIDDLEWARE_CLASSES = (
     # Simplified static file serving.
     # https://warehouse.python.org/project/whitenoise/
@@ -153,3 +154,4 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = '/crank/media'
 MEDIA_URL = '/media/'
+

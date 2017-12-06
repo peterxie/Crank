@@ -1,0 +1,20 @@
+$ python manage.py test
+nosetests --testmatch=^test --with-coverage --cover-package=crank --verbosity=1
+Creating test database for alias 'default'...
+Destroying old test database for alias 'default'...
+
+............................................................
+Name               Stmts   Miss  Cover
+--------------------------------------
+crank/filters.py      10      0   100%
+crank/forms.py        76      4    95%
+crank/tokens.py        6      0   100%
+crank/urls.py          7      0   100%
+crank/views.py       152     32    79%
+--------------------------------------
+TOTAL                251     36    86%
+----------------------------------------------------------------------
+Ran 60 tests in 8.247s
+
+OK
+Destroying test database for alias 'default'...

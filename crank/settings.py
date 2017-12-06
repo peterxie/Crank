@@ -41,17 +41,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    'django_nose',
     'crank',
 )
-
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
-
-NOSE_ARGS = [
-    '--testmatch=^test',
-    '--with-coverage',
-    '--cover-package=crank',
-    ]
 
 MIDDLEWARE_CLASSES = (
     # Simplified static file serving.
@@ -160,3 +151,5 @@ STATICFILES_DIRS = (
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+MEDIA_ROOT = '/crank/media'
+MEDIA_URL = '/media/'

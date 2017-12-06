@@ -31,4 +31,4 @@ urlpatterns = [
     url(r'^delete_rank/(?P<delete_id>[0-9A-Za-z]+)/$', crank.views.delete_rank, name='delete_rank'),
     url(r'^search', crank.views.search, name='search'),
     url(r'^admin/', include(admin.site.urls)),
-]
+], + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

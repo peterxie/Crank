@@ -1,35 +1,47 @@
+{% load static %} 
+
 <!DOCTYPE html>
-<html lang="en">
- 
-<head>
-    <title>CRANK</title>
- 
- 
-    <link href="../static/bootstrap.css" rel="stylesheet">
- 
-    <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
- 
- 
+<html lang="en"><head>
+  <title>CRANK</title>
+
+  
+  
+  <link href="../static/bootstrap.css" rel="stylesheet">
+
+  
+  <link href="http://getbootstrap.com/examples/jumbotron-narrow/jumbotron-narrow.css" rel="stylesheet">
+
 </head>
- 
 <body>
- 
-    <div class="container">
+<div class="container">
+<div class="jumbotron">
+<div style="text-align: center;"> </div>
+<h1 style="text-align: center;">Welcome to CRank!</h1>
+<div style="text-align: center;"><img style="width: 204px; height: 204px;" alt="Columbia Engineering image" src="{% static "images/logo-hammers600.jpg" %}"<br></div>
+<div style="text-align: center;">A class rating platform designed by and for Computer Science students at <br>
+Columbia University's Fu Foundation School of Engineering<br></div>
+<br>
+<center>
+<table style="text-align: left; width: 262px; height: 32px;" border="0" cellpadding="2" cellspacing="2">
+  <tbody>
+    <tr>
+      <td style="vertical-align: top; text-align: center;"><a class="btn btn-lg btn-success" href="login" role="button">Login</a><br>
+      </td>
+      <td style="vertical-align: top; text-align: center;"><a class="btn btn-lg btn-success" href="signup" role="button"><span style="font-family: monospace;"></span>Sign Up</a><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<br>
+<br>
+<p>
+</p>
+<p>
+</p>
+</div>
+<footer class="footer"> </footer>
+<p>© Crank 2017</p>
+</div>
 
-        <div class="jumbotron">
-            <h1>Crank</h1>
-            <p class="lead"></p>
-            <p><a class="btn btn-lg btn-success" href="login" role="button">Login</a>
-            <p><a class="btn btn-lg btn-success" href="signup" role="button">Sign Up</a>
-            </p>
-        </div>
- 
-        <footer class="footer">
-            <p>&copy; Crank 2017</p>
-        </footer>
- 
-    </div>
-</body>
- 
-</html>
-
+</body></html>

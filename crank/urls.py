@@ -22,13 +22,13 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^home', crank.views.home, name='home'),
     url(r'^rank', crank.views.rank, name='rank'),
     url(r'^display/$', crank.views.display, name='display'),
     url(r'^history/$', crank.views.show_history, name='history'),
-    url(r'^manage_account/$', crank.views.manage_account, name='manage_account'),
+    url(r'^manage_account/$', crank.views.manage_account, name='manage'),
     url(r'^change_password/$', crank.views.change_password, name='change_password'),
     url(r'^delete_rank/(?P<delete_id>[0-9A-Za-z]+)/$', crank.views.delete_rank, name='delete_rank'),
     url(r'^search', crank.views.search, name='search'),
-    url(r'^admin/', include(admin.site.urls)),
-], + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

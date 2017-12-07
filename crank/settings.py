@@ -34,6 +34,7 @@ SECRET_KEY = 'i+acxn5(akgsn!sr4^qgf(^m&*@+g1@u^t@=8s@axc41ml*f=s'
 # Application definition
 
 INSTALLED_APPS = (
+    'crank',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,7 +42,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
-    'crank',
 )
 
 MIDDLEWARE_CLASSES = (

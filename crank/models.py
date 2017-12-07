@@ -75,6 +75,7 @@ class Rating_id(models.Model):
     overall_quality = models.IntegerField()
     oral_written_tests_helpful = models.IntegerField()
     learned_much_info = models.IntegerField()
+    comments = models.CharField(max_length=2000)
 
     class Meta:
         unique_together = (("uni", "course_faculty"))

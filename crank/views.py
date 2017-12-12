@@ -112,7 +112,7 @@ def rank(request):
 def display(request):
 	#default order by usefulness
     order_by = request.GET.get('order_by', 'usefulness')
-    rating_average = Rating_Average.objects.order_by("-"+order_by)
+    rating_average = Rating_Average.objects.order_by(order_by)
     
     return render(request, 'display.html', {'rating_average': rating_average})
 

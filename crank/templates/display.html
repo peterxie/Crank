@@ -1,3 +1,5 @@
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
 {% extends "base.html" %}
 {% load staticfiles %}
 
@@ -9,12 +11,12 @@
 
 <table class = "table" >
 	<tr>
-	<th><a href="?order_by=course_faculty">Course/Faculty</a></th>
-	<th><a href="?order_by=usefulness">Usefulness</a></th>
-	<th><a href="?order_by=overall_quality">Overall Quality</a></th>
-	<th><a href="?order_by=lecture_quality">Lecture Quality</a></th>
-	<th><a href="?order_by=oral_written_tests_helpful">Oral/Written Tests Helpful</a></th>
-	<th><a href="?order_by=learned_much_info">Learned Much in Class</a></th>
+	<th>Course/Faculty</br><a href="?order_by=course_faculty"><i class="fa fa-fw fa-sort-asc"></i></a><a href="?order_by=-course_faculty"><i class="fa fa-fw fa-sort-desc"></i></a></th>
+	<th>Usefulness</br><a href="?order_by=usefulness"><i class="fa fa-fw fa-sort-asc"></i></a><a href="?order_by=-usefulness"><i class="fa fa-fw fa-sort-desc"></i></a></th>
+	<th>Overall Quality</br><a href="?order_by=overall_quality"><i class="fa fa-fw fa-sort-asc"></i></a><a href="?order_by=-overall_quality"><i class="fa fa-fw fa-sort-desc"></i></a></th>
+	<th>Lecture Quality</br><a href="?order_by=lecture_quality"><i class="fa fa-fw fa-sort-asc"></i></a><a href="?order_by=-lecture_quality"><i class="fa fa-fw fa-sort-desc"></i></a></th>
+	<th>Oral/Written Tests Helpful</br><a href="?order_by=oral_written_tests_helpful"><i class="fa fa-fw fa-sort-asc"></i></a><a href="?order_by=-oral_written_tests_helpful"><i class="fa fa-fw fa-sort-desc"></i></a></th>
+	<th>Learned Much in Class</br><a href="?order_by=learned_much_info"><i class="fa fa-fw fa-sort-asc"></i></a><a href="?order_by=-learned_much_info"><i class="fa fa-fw fa-sort-desc"></i></a></th>
 	</tr>
     
 

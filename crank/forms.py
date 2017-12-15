@@ -68,6 +68,7 @@ class RankForm(forms.Form):
     overall_quality = forms.ChoiceField(deepcopy(rating_choices), help_text='1(worst) - 5(best)')
     oral_written_tests_helpful = forms.ChoiceField(deepcopy(rating_choices), help_text='1(worst) - 5(best)')
     learned_much_info = forms.ChoiceField(deepcopy(rating_choices), help_text='1(worst) - 5(best)')
+    comments = forms.CharField(max_length=500, required=False, help_text='Optional.')
 
     def __init__(self, *args, **kwargs):
         super(RankForm, self).__init__(*args, **kwargs)

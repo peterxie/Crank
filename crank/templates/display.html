@@ -22,7 +22,7 @@
 
 {% for obj in rating_average %}
 	<tr>
-	<td>{{obj.course_faculty}}</td>
+	<td><a href="{% url 'comments' comments_id=obj.course_faculty %}">{{obj.course_faculty}}</td>
 	<td>{{obj.usefulness}}</td>
 	<td>{{obj.overall_quality}}</td>
 	<td>{{obj.lecture_quality}}</td>

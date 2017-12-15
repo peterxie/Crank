@@ -116,6 +116,11 @@ def display(request):
     
     return render(request, 'display.html', {'rating_average': rating_average})
 
+def display_comments(request,comments_id=None):
+    course,faculty = comments_id.split('/')
+    ratings_to_show = Rating_id.objects.all().filter(course_faculty__course=course, course_faculty__faculty=faculty).order_by('-overall_quality')
+    return render(request, 'comments.html', {'comments':ratings_to_show})
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

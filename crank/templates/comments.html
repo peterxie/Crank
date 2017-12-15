@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+  <div class="container">
+
+
+<h2>Comments</h2>
+
+<table class = "table" >
+	<tr>
+	<th>Overall Quality</th>
+	<th>Comments</th>
+	</tr>
+    
+
+{% for obj in comments %}
+	<tr>
+	<td>{{obj.overall_quality}}</td>
+	<td>{{obj.comments}}</td>
+	</tr>
+{% endfor %}
+
+
+{% endblock %}

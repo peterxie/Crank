@@ -17,7 +17,7 @@ $ pip install -r requirements.txt
 
 $ python manage.py migrate
 
-$ python crank/fixtures/pop.py
+$ python crank/fixtures/pop.py    #use this to populate database tables for the first time
 
 $ python manage.py collectstatic
 

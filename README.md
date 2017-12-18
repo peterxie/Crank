@@ -17,6 +17,8 @@ $ pip install -r requirements.txt
 
 $ python manage.py migrate
 
+$ python crank/fixtures/pop.py
+
 $ python manage.py collectstatic
 
 $ python manage.py runserver

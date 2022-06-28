@@ -16,5 +16,5 @@ regex==2017.11.9
 requests==2.18.4
 six==1.11.0
 toml==0.9.3.1
-urllib3==1.22
+urllib3==1.26.5
 whitenoise==3.3.1
